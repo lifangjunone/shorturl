@@ -1,0 +1,35 @@
+syntax = "v1"
+
+info (
+	title:  "ShortURL"
+	desc:   "This is a short service that convert a long url to a short url"
+	author: "lifangjun"
+	email:  "1376178051@qq.com"
+)
+
+type (
+	expandReq {
+		shorten string `form:"shorten"`
+	}
+	expandResp {
+		url string `json:"url"`
+	}
+)
+
+type (
+	shortenReq {
+		url string `form:"url"`
+	}
+	shortenResp {
+		shorten string `json:"shorten"`
+	}
+)
+
+service shorturl-api {
+	@handler ShortenHandler
+	get /shorten (shortenReq) returns (shortenResp)
+
+	@handler ExpandHandler
+	get /expand (expandReq) returns (expandResp)
+}
+
